@@ -4,7 +4,7 @@ from .settings import BASE_DIR
 
 # Security settings
 SECRET_KEY = os.environ['SECRET_KEY']  # Set the SECRET_KEY as an environment variable
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]  # Your production domain(s)
 CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]  # Trusted origins for CSRF
