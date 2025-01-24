@@ -4,7 +4,7 @@ from .settings import BASE_DIR
 
 # Security settings
 SECRET_KEY = os.environ['SECRET_KEY']  # Set the SECRET_KEY as an environment variable
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]  # Your production domain(s)
 CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]  # Trusted origins for CSRF
@@ -40,12 +40,11 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory where `collectstatic` will store files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # Use WhiteNoise for optimized static files
 
-MEDIA_URL = f'https://{os.environ["AZURE_ACCOUNT_NAME"]}.blob.core.windows.net/{os.environ["AZURE_CONTAINER"]}/'
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 AZURE_ACCOUNT_NAME = os.environ['AZURE_ACCOUNT_NAME']
 AZURE_ACCOUNT_KEY = os.environ['AZURE_ACCOUNT_KEY']
 AZURE_CONTAINER = os.environ['AZURE_CONTAINER']
-
+MEDIA_URL = f'https://{os.environ["AZURE_ACCOUNT_NAME"]}.blob.core.windows.net/{os.environ["AZURE_CONTAINER"]}/'
 
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

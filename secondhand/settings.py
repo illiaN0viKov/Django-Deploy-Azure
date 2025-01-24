@@ -14,8 +14,8 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'fallback_secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = [os.getenv('WEBSITE_HOSTNAME', 'localhost')]
-CSRF_TRUSTED_ORIGINS = ['https://' + os.getenv('WEBSITE_HOSTNAME', 'localhost')]
+ALLOWED_HOSTS = []
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -62,7 +62,7 @@ WSGI_APPLICATION = 'secondhand.wsgi.application'
 # Database configuration
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mssql',
+        'ENGINE': 'mssql',
         'NAME': os.getenv('DATABASE_NAME'),
         'USER': os.getenv('DATABASE_USER'),
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
@@ -105,14 +105,18 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files
-MEDIA_URL = "/media/"
+# Media files and storage/container
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
 AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+AZURE_CONTAINER = 'media' # Make sure to set the container name
+MEDIA_URL = f"/https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/AZURE_CONTAINER/"
 
-AZURE_CONTAINER = 'media'  # Fixed name for the container
+
+AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
+AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
 
 # Login and logout settings
 LOGOUT_REDIRECT_URL = '/login/'
@@ -124,17 +128,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Session engine
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
+
+
 # Load storages for Azure (if using)
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.azure_storage.AzureStorage",
-        "OPTIONS": {
-            "account_name": AZURE_ACCOUNT_NAME,
-            "account_key": AZURE_ACCOUNT_KEY,
-            "container_name": AZURE_CONTAINER,
-        },
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
+# STORAGES = {
+#     "default": {
+#         "BACKEND": "storages.backends.azure_storage.AzureStorage",
+#         "OPTIONS": {
+#             "account_name": AZURE_ACCOUNT_NAME,
+#             "account_key": AZURE_ACCOUNT_KEY,
+#             "container_name": AZURE_CONTAINER,
+#         },
+#     },
+#     "staticfiles": {
+#         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+#     },
+# }
+
+
