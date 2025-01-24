@@ -1,0 +1,46 @@
+{% extends "main.html" %}
+
+
+
+{% block content %}
+<div class="flex flex-col justify-center font-[sans-serif] mt-6">
+    <div class="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
+      <div class="text-center mb-12">
+        <h2 class="text-gray-800 text-center text-2xl font-bold">Register</h2>
+      </div>
+
+      <form method="POST" action = "">
+        {% csrf_token %}
+
+        <div class="space-y-6">
+
+          <div>
+            <label class="text-gray-800 text-sm mb-2 block">Username</label>
+            {{form.username}}
+          </div>
+
+          <div>
+            <label class="text-gray-800 text-sm mb-2 block">Password</label>
+            {{form.password1}}
+          </div>
+
+          <div>
+            <label class="text-gray-800 text-sm mb-2 block">Confirm Password</label>
+           {{form.password2}}
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <button type="submit" class="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+            Create an account
+          </button>
+        </div>
+
+        <p class="text-gray-800 text-sm mt-6 text-center">Already have an account?
+          <a href="{% url 'login' %}" class="text-blue-600 font-semibold hover:underline ml-1">Sign In</a>
+
+      </form>
+      
+    </div>
+  </div>
+{% endblock content %}
