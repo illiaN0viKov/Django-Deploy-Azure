@@ -3,7 +3,7 @@ from .settings import *
 from .settings import BASE_DIR
 
 # Security settings
-SECRET_KEY = os.environ['SECRET']  # Set the SECRET_KEY as an environment variable
+SECRET_KEY = os.environ['SECRET_KEY']  # Set the SECRET_KEY as an environment variable
 DEBUG = False
 
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]  # Your production domain(s)
@@ -25,10 +25,10 @@ MIDDLEWARE = [
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ['DB_HOST'],
+        'NAME': os.environ['DATABASE_NAME'],
+        'USER': os.environ['DATABASE_USER'],
+        'PASSWORD': os.environ['DATABASE_PASSWORD'],
+        'HOST': os.environ['DATABASE_HOST'],
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
@@ -40,11 +40,11 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory where `collectstatic` will store files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # Use WhiteNoise for optimized static files
 
-MEDIA_URL = f'https://{os.environ["AZURE_ACCOUNT_NAME"]}.blob.core.windows.net/{os.environ["AZURE_MEDIA_CONTAINER"]}/'
+MEDIA_URL = f'https://{os.environ["AZURE_ACCOUNT_NAME"]}.blob.core.windows.net/{os.environ["AZURE_CONTAINER"]}/'
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 AZURE_ACCOUNT_NAME = os.environ['AZURE_ACCOUNT_NAME']
 AZURE_ACCOUNT_KEY = os.environ['AZURE_ACCOUNT_KEY']
-AZURE_CONTAINER = os.environ['AZURE_MEDIA_CONTAINER']
+AZURE_CONTAINER = os.environ['AZURE_CONTAINER']
 
 
 # Default auto field

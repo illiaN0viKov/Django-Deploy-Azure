@@ -111,6 +111,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = "/media/"
 AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
 AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+
 AZURE_CONTAINER = 'media'  # Fixed name for the container
 
 # Login and logout settings
