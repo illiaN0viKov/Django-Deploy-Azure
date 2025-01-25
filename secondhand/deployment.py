@@ -3,7 +3,7 @@ from .settings import *
 from .settings import BASE_DIR
 
 # Security settings
-SECRET_KEY = os.environ['SECRET_KEY']  # Set the SECRET_KEY as an environment variable
+SECRET_KEY = os.environ['SECRET']  # Set the SECRET_KEY as an environment variable
 DEBUG = False
 
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]  # Your production domain(s)
@@ -43,8 +43,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 AZURE_ACCOUNT_NAME = os.environ['AZURE_ACCOUNT_NAME']
 AZURE_ACCOUNT_KEY = os.environ['AZURE_ACCOUNT_KEY']
-AZURE_CONTAINER = os.environ['AZURE_CONTAINER']
-MEDIA_URL = f'https://{os.environ["AZURE_ACCOUNT_NAME"]}.blob.core.windows.net/{os.environ["AZURE_CONTAINER"]}/'
+AZURE_CONTAINER = 'media'
+MEDIA_URL = f'https://{os.environ["AZURE_ACCOUNT_NAME"]}.blob.core.windows.net/media/'
 
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
