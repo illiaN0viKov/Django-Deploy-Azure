@@ -6,8 +6,12 @@ from .settings import BASE_DIR
 SECRET_KEY = os.environ['SECRET']  # Set the SECRET_KEY as an environment variable
 DEBUG = False
 
-ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]  # Your production domain(s)
-CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]  # Trusted origins for CSRF
+ALLOWED_HOSTS = ["secondhanddjangoazure-adhscng3begmbsgn.polandcentral-01.azurewebsites.net"]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://secondhanddjangoazure-adhscng3begmbsgn.polandcentral-01.azurewebsites.net"
+]
+
 
 # Middleware configuration with WhiteNoise
 MIDDLEWARE = [
