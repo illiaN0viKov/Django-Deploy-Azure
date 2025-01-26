@@ -4,7 +4,7 @@ from .settings import BASE_DIR
 
 # Security settings
 SECRET_KEY = os.environ['SECRET']  # Set the SECRET_KEY as an environment variable
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["secondhanddjangoazure-adhscng3begmbsgn.polandcentral-01.azurewebsites.net"]
 
