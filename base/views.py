@@ -3,7 +3,7 @@ from .models import Item
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
-from .forms import CustomUserCreationForm, CustomLoginForm
+from .forms import CustomUserCreationForm, CustomLoginForm, AddItemForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
@@ -11,6 +11,12 @@ from django.http import JsonResponse
 def home(request):
     items = Item.objects.all()
     return render(request, 'base/home.html', {'items':items})
+
+@login_required
+def my_items(request):
+    items = Item.objects.filter(seller=request.user)
+    return render(request, 'base/my_products.html', {'items':items})
+
 
 
 def register(request):
@@ -41,7 +47,11 @@ def login(request):
 
 @login_required
 def profile(request):
-    return render(request, "base/profile.html")
+    user = request.user
+    liked_items_count = Item.objects.filter(liked=user).count()
+    my_items_count = Item.objects.filter(seller=user).count()
+
+    return render(request, "base/profile.html", {"liked_items_count": liked_items_count, "my_items_count":my_items_count })
 
 @login_required
 def item_overview(request, pk):
@@ -59,3 +69,66 @@ def toggle_like(request, pk):
         item.liked.add(request.user)
 
     return redirect('overview', pk=pk)
+
+@login_required
+def liked(request):
+    user = request.user
+    liked_items = Item.objects.filter(liked=user)
+
+    return render(request, 'base/liked.html', {'liked_items': liked_items})
+
+@login_required
+def upload(request):
+    form = AddItemForm()
+
+    if request.method == "POST":
+        form = AddItemForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.seller = request.user
+
+            print(request.FILES)
+
+            if 'picture' in request.FILES:
+                print("File is here!")
+                item.picture = request.FILES['picture']
+
+            item.save()
+            return redirect('home')
+
+    return render(request, 'base/upload.html', {"form": form})
+
+
+@login_required
+def delete(request, pk):
+    item=Item.objects.get(id=pk)
+    item.delete()
+
+    return redirect('home')
+
+
+@login_required
+def edit(request, pk):
+    # Fetch the existing item instance
+    item =  Item.objects.get(id=pk)
+
+    # Initialize the form with the item instance
+    form = AddItemForm(request.POST or None, request.FILES or None, instance=item)
+
+    if request.method == "POST" and form.is_valid():
+        # Set the seller to the current user
+        item = form.save(commit=False)
+        item.seller = request.user
+
+        if 'picture' in request.FILES:
+            item.picture = request.FILES['picture']
+        else:
+            item.picture = item.picture
+
+        item.save()
+
+        return redirect('home')
+
+    return render(request, 'base/edit.html', {"form": form, "item": item})
+

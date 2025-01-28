@@ -15,6 +15,16 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
 
     path("overview/<int:pk>/", views.item_overview, name="overview"),
-    path('toggle_like/<int:pk>/', views.toggle_like, name='toggle_like')
+    path('toggle_like/<int:pk>/', views.toggle_like, name='toggle_like'),
+
+    path ('liked/', views.liked, name="liked"),
+    
+    path ('add/', views.upload, name="upload"),
+
+    path ('delete/<str:pk>/', views.delete, name="delete"),
+
+    path ('edit/<str:pk>/', views.edit, name="edit"),
+
+    path ('my-added-items', views.my_items, name="my-added-items"),
     
 ]

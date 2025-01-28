@@ -1,7 +1,12 @@
 {% load static %}
 
 <header class="header sticky top-0 bg-white shadow-md flex justify-center items-center px-8 py-2">
-  <a href="{% url 'login' %}">
-    <img src="{% static 'images/logo.svg' %}" alt="Logo" class="h-12 w-auto hover:text-green-500 duration-200">
+
+  <a href="{% url 'home' %}" class="flex items-center space-x-2 hover:text-green-500">
+    <img src="{% static 'images/logo.svg' %}" alt="Logo" class="h-12 w-auto duration-300">
+    <p class="text-3xl font-bold tracking-wide bg-clip-text from-green-400 to-blue-500 ">
+      Thrift
+    </p>
   </a>
+
 </header>
