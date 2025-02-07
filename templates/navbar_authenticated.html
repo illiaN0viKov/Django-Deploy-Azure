@@ -4,47 +4,37 @@
 <body>
 
 <!-- component -->
-<header class="header sticky top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between px-8 py-02 z-50">
-  <!-- logo -->
-
-  <h1 class="flex items-center">
+<header class="header sticky top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between px-8 py-2 z-50">
+  <!-- Logo -->
+  <h1>
     <a href="{% url 'home' %}" class="flex items-center space-x-2 hover:text-green-500">
       <img src="{% static 'images/logo.svg' %}" alt="Logo" class="h-12 w-auto duration-300">
-      <p class="text-3xl font-bold tracking-wide bg-clip-text from-green-400 to-blue-500 ">
-        Thrift
-      </p>
+      <p class="text-3xl font-bold tracking-wide bg-clip-text from-green-400 to-blue-500">Thrift</p>
     </a>
   </h1>
-  
 
-  <!-- navigation -->
-  <nav class="nav font-semibold text-lg">
-      <ul class="flex items-center">
-
-          <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
-            <a href="{% url 'home' %}">Items</a>
-          </li>
-
-          <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-            <a href="{%url 'upload' %}">Add Item</a>
-          </li>
-
-          <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
-            <a href="{% url 'liked' %}">Liked</a>
-          </li>
-
-      </ul>
+  <!-- Navigation -->
+  <nav class="nav font-semibold text-lg flex-1 flex justify-center">
+    <ul class="flex space-x-8">
+      <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+        <a href="{% url 'home' %}">Items</a>
+      </li>
+      <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+        <a href="{% url 'upload' %}">Add Item</a>
+      </li>
+      <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer">
+        <a href="{% url 'liked' %}">Liked</a>
+      </li>
+    </ul>
   </nav>
 
-  <!-- buttons -->
-  <div class="w-3/12 flex justify-end items-end  hover:text-green-500">
-    <p class="text-md mr-2 font-semibold">{{ request.user }}</p>
+  <!-- Buttons (User Info & Profile) -->
+  <div class="flex items-center space-x-4 hover:text-green-500">
+    <p class="text-md font-semibold ">{{ request.user }}</p>
     <a href="{% url 'profile' %}">
-        <img src="{% static 'images/profile.svg' %}" alt="Profile" class="h-8 w-auto hover:text-green-500 duration-200">
+      <img src="{% static 'images/profile.svg' %}" alt="Profile" class="h-8 w-auto hover:text-green-500 duration-200">
     </a>
-</div>
-
+  </div>
 </header>
-
 </body>
 </html>
